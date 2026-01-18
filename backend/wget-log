@@ -1,0 +1,11 @@
+--2026-01-18 15:00:59--  https://repo.maven.apache.org/maven2/org/apache/maven/wrapper/maven-wrapper/3.2.0/maven-wrapper-3.2.0.jar
+Resolving repo.maven.apache.org (repo.maven.apache.org)... 104.18.18.12, 104.18.19.12, 2606:4700::6812:120c, ...
+Connecting to repo.maven.apache.org (repo.maven.apache.org)|104.18.18.12|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 62547 (61K) [application/java-archive]
+Saving to: ‘/workspaces/advance-oop-tests/backend/.mvn/wrapper/maven-wrapper.jar’
+
+                    /workspaces/advance   0%[                                                                               ]       0  --.-KB/s               /workspaces/advance-oop-tests/backend/. 100%[==============================================================================>]  61.08K  --.-KB/s    in 0.001s  
+
+2026-01-18 15:00:59 (73.2 MB/s) - ‘/workspaces/advance-oop-tests/backend/.mvn/wrapper/maven-wrapper.jar’ saved [62547/62547]
+
