@@ -30,7 +30,7 @@ const studentService = {
    * @returns Promise with array of all students
    */
   getAllStudents: async (): Promise<Student[]> => {
-    const response = await apiClient.get<Student[]>('/');
+    const response = await apiClient.get<Student[]>('');
     return response.data;
   },
 
@@ -54,7 +54,7 @@ const studentService = {
    * @returns Promise with the created student (includes generated ID)
    */
   createStudent: async (student: StudentFormData): Promise<Student> => {
-    const response = await apiClient.post<Student>('/', student);
+    const response = await apiClient.post<Student>('', student);
     return response.data;
   },
 

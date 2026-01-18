@@ -6,7 +6,8 @@ export const EnrollmentStatus = {
   SUSPENDED: 'SUSPENDED'
 } as const;
 
-export type EnrollmentStatus = typeof EnrollmentStatus[keyof typeof EnrollmentStatus];
+// Type derived from EnrollmentStatus const
+export type EnrollmentStatusType = typeof EnrollmentStatus[keyof typeof EnrollmentStatus];
 
 // Student interface matching backend entity
 export interface Student {
@@ -19,7 +20,7 @@ export interface Student {
   address?: string;
   major: string;
   gpa?: number;
-  enrollmentStatus: EnrollmentStatus;
+  enrollmentStatus: EnrollmentStatusType;
 }
 
 // Form data type for creating/updating students

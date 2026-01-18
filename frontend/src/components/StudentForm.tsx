@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { Student, EnrollmentStatus } from '../types';
+import type { Student } from '../types/Student';
+import { EnrollmentStatus } from '../types/Student';
 
 /**
  * Props for StudentForm component
@@ -63,7 +64,30 @@ const StudentForm: React.FC<StudentFormProps> = ({ student, onSubmit, onCancel }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(formData);
+
+    // Sanitize form data before submission
+    const sanitizedData: Partial<Student> = {
+      firstName: formData.firstName,
+      lastName: formData.lastName,
+      email: formData.email,
+      dateOfBirth: formData.dateOfBirth,
+      major: formData.major,
+      enrollmentStatus: formData.enrollmentStatus || EnrollmentStatus.ACTIVE,
+    };
+
+    // Only include optional fields if they have values
+    if (formData.phoneNumber && formData.phoneNumber.trim()) {
+      sanitizedData.phoneNumber = formData.phoneNumber.trim();
+    }
+    if (formData.address && formData.address.trim()) {
+      sanitizedData.address = formData.address.trim();
+    }
+    if (formData.gpa !== undefined && formData.gpa !== null) {
+      sanitizedData.gpa = formData.gpa;
+    }
+
+    console.log('Submitting student data:', sanitizedData);
+    onSubmit(sanitizedData);
   };
 
   return (

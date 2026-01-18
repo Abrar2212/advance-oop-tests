@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import StudentList from './components/StudentList';
 import StudentForm from './components/StudentForm';
 import studentService from './services/studentService';
-import { Student } from './types/Student';
+import type { Student } from './types/Student';
 import './App.css';
 
 /**
@@ -65,8 +65,29 @@ function App() {
       await fetchStudents();
       handleCancel();
     } catch (err: any) {
-      setError(err.response?.data?.message || 'Failed to save student. Please check your input and try again.');
+      // Extract detailed error message from backend
+      let errorMessage = 'Failed to save student. Please check your input and try again.';
+
+      if (err.response?.data) {
+        const errorData = err.response.data;
+
+        if (errorData.errors && Object.keys(errorData.errors).length > 0) {
+          // Format validation errors with field names
+          const errors = errorData.errors;
+          const errorList = Object.entries(errors)
+            .map(([field, message]) => `${field}: ${message}`)
+            .join('; ');
+          errorMessage = `${errorData.message || 'Validation failed'} - ${errorList}`;
+        } else if (errorData.message) {
+          errorMessage = errorData.message;
+        }
+      } else if (err.message) {
+        errorMessage = err.message;
+      }
+
+      setError(errorMessage);
       console.error('Error saving student:', err);
+      console.error('Error details:', err.response?.data);
     }
   };
 
@@ -112,8 +133,8 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex flex-col items-center py-12 px-4">
+      <div className="w-full max-w-7xl">
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-gray-800 mb-2">
